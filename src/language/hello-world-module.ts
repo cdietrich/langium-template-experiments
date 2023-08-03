@@ -7,6 +7,7 @@ import { HelloWorldValidator, registerValidationChecks } from './hello-world-val
 import { CustomTokenBuilder } from './CustomTokenBuilder';
 import { CustomLexer } from './CustomLexer';
 import { CustomCompletionProvider } from './CustomCompletionProvider';
+//import { CustomCompletionProvider } from './CustomCompletionProvider';
 
 /**
  * Declaration of custom services - add your own service classes here.
