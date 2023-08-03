@@ -6,6 +6,7 @@ import { HelloWorldGeneratedModule, HelloWorldGeneratedSharedModule } from './ge
 import { HelloWorldValidator, registerValidationChecks } from './hello-world-validator';
 import { CustomTokenBuilder } from './CustomTokenBuilder';
 import { CustomLexer } from './CustomLexer';
+import { CustomCompletionProvider } from './CustomCompletionProvider';
 
 /**
  * Declaration of custom services - add your own service classes here.
@@ -33,7 +34,10 @@ export const HelloWorldModule: Module<HelloWorldServices, PartialLangiumServices
     },
     parser: {
         TokenBuilder: () => new CustomTokenBuilder(),
-        Lexer: (service) => new CustomLexer(service)
+        Lexer: (services) => new CustomLexer(services)
+    },
+    lsp: {
+        CompletionProvider: (services) => new CustomCompletionProvider(services)
     }
 };
 
