@@ -24,7 +24,7 @@
             "sourceMaps": true,
             "outFiles": [
                 "${workspaceFolder}/out/**/*.js",
-                "${workspaceFolder}/node_modules/langium/**/*.js"
+                "${workspaceFolder}/node_modules/langium/lib/**/*.js"
             ]
         }
     ]
