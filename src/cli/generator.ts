@@ -1,8 +1,10 @@
 import fs from 'fs';
 import { CompositeGeneratorNode, NL, toString } from 'langium';
 import path from 'path';
-import { Model } from '../language/generated/ast';
+import { Model, Ref, isDotExpression, isEntityRef, isRef } from '../language/generated/ast';
 import { extractDestinationAndName } from './cli-util';
+
+
 
 export function generateJavaScript(model: Model, filePath: string, destination: string | undefined): string {
     const data = extractDestinationAndName(filePath, destination);
@@ -11,11 +13,20 @@ export function generateJavaScript(model: Model, filePath: string, destination: 
     const fileNode = new CompositeGeneratorNode();
     fileNode.append('"use strict";', NL, NL);
     model.content.forEach(c => {
+        function logRef(r: Ref) {
+            if (isDotExpression(r)) {
+                logRef(r.ref)
+                console.log("tail: " + r.tail)
+            } else if (isEntityRef(r)) {
+                console.log("head: "+ r.entity)
+            }
+        }
         if (typeof c == 'string') {
             console.log(c)
-        } else {
-            console.log("expression: " + c.name)
+        } else if (isRef(c)) {
+            logRef(c);
         }
+
     }
         
         )

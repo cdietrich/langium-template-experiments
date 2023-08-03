@@ -16,12 +16,28 @@ entry Model:
     content+=TEMPLATE_LITERAL_FULL? EOF
 ;
 
-Expression:
-    name=QualifiedName
+Expression returns Expression:
+    DotExpression
 ;
 
-QualifiedName returns string:
-	ID ("." ID)*;
+interface Expression {}
+interface Ref extends Expression {
+}
+interface DotExpression extends Ref {
+    ref: Ref
+    tail: string
+}
+interface EntityRef extends Ref {
+    entity: string
+}
+
+DotExpression returns Ref:
+    EntityRef ({DotExpression.ref=current}  "." tail=ID)*
+;
+ 
+EntityRef returns Ref:
+    {EntityRef} entity=ID
+; 
 
 
 
