@@ -32,14 +32,16 @@ interface EntityRef extends Ref {
 }
 
 DotExpression returns Ref:
-    EntityRef ({DotExpression.ref=current}  "." tail=ID)*
+    EntityRef ({DotExpression.ref=current}  DOT tail=ID)*
 ;
  
 EntityRef returns Ref:
     {EntityRef} entity=ID
 ; 
 
-
+// langium for some reasons sorts keywords to the end (contrary to xtext)
+terminal DOT:
+    /\./;
 
 terminal TEMPLATE_LITERAL_START:
     IN_TEMPLATE_LITERAL? '{{';
@@ -51,13 +53,11 @@ terminal TEMPLATE_LITERAL_END:
     '}}' IN_TEMPLATE_LITERAL?;
 
 terminal TEMPLATE_LITERAL_FULL:
-    EOF; // will be switched in CustomTokenBuilder
-    // /(([^{]|[{](?=[^{]))+)(?!.)/ ;
+    //EOF; // will be switched in CustomTokenBuilder
+   /(([^{]|[{](?=[^{]))+)(?!.)/ ;
 
 hidden terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;
-terminal INT returns number: /[0-9]+/;
-terminal STRING: /"(\\.|[^"\\])*"|'(\\.|[^'\\])*'/;
 
 hidden terminal ML_COMMENT: /\/\*[\s\S]*?\*\//;
 hidden terminal SL_COMMENT: /\/\/[^\n\r]*/;

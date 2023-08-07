@@ -60,9 +60,10 @@ export class CustomTokenBuilder extends DefaultTokenBuilder {
             console.log("uiuiiui")
             tokenType = EOF;
         }
-        if (tokenType.name === 'TEMPLATE_LITERAL_FULL') {
-            tokenType.PATTERN =/(([^{]|[{](?=[^{]))+)(?!.)/;
-        }
+        // TODO needed when we dont use keywords as terminals
+        // if (tokenType.name === 'TEMPLATE_LITERAL_FULL') {
+        //     tokenType.PATTERN =/(([^{]|[{](?=[^{]))+)(?!.)/;
+        // }
         // Update token types to enter & exit template mode
         if(tokenType.name === 'TEMPLATE_LITERAL_START') {
             console.log("push")
